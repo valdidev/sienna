@@ -1,9 +1,23 @@
+<?php
+/* 
+	Este archivo PHP define la interfaz de usuario para gestionar el guardado y la carga de datos en el proyecto. 
+*/
+?>
+<header>
+	<h1>
+		<img src="sienna.png">jocarsa | sienna
+	</h1>
+	<div id="botonera">
+		<button id="guardarServidor">Guardar en servidor</button>
+		<button id="guardarLocal">Guardar en local</button>
+		<button id="cargarArchivo">Cargar archivo</button>
+		<button id="reiniciarMemoria">Reiniciar</button>
+	</div>
+</header>
 
-<!-- Guardar estado actual de la partida -->
-<button id="guardar">Guardar</button>
 <style>
-    <?php include 'componentes/guardar/guardar.css'; ?>
+	<?php include "guardar.css"; ?>
 </style>
 <script>
-    <?php include 'componentes/guardar/guardar.js'; ?>
+	<?php include "guardar.js"; ?>
 </script>

@@ -1,49 +1,77 @@
-<!-- Punto de arranque: llamada a los componentes y uso de a-frame -->
+<?php
+/* 
+    Este archivo es el punto de entrada del proyecto Sienna, un entorno 3D interactivo construido con A-Frame. 
+    Incluye un sistema de inicio de sesión, un mundo 3D con iluminación, cielo dinámico y física básica, 
+    y componentes para guardar/cargar datos y seleccionar colores. 
+    También integra scripts y estilos para la interacción y personalización del entorno.
+*/
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
-  <title>valdidev</title>
+  <title>jocarsa | sienna</title>
+  <!-- cargo archivo configuración -->
+  <script src="codigo/config.js"></script>
+  <!-- cargo librerías -->
   <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
-  <script src="https://unpkg.com/aframe-physics-system-fork/dist/aframe-physics-system.min.js"></script>
+  <script src="lib/colores.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aframe-instanced-mesh@0.5.0/dist/aframe-instanced-mesh.min.js"></script>
+
+  <script>
+    window.addEventListener("contextmenu", function(e) {
+      e.preventDefault();
+    });
+  </script>
+
   <style>
     <?php include "estilo/estilo.css" ?>
   </style>
 </head>
 
 <body>
-  <div id="instruction">Click para empezar!</div>
+  <div id="instruction">Click para entrar en el juego</div>
+  <?php include "componentes/login/login.php"; ?>
 
-  <?php include 'componentes/login/login.php'; ?>
-
-  <a-scene shadow="type: pcfsoft" physics="gravity: -9.8;">
+  <a-scene
+    shadow="type: pcfsoft"
+    physics="gravity: -9.8;"
+    fog="type: linear; color: #ffffff; near: 10; far: 50">
     <a-assets>
-      <a-mixin
-        id="material1"
-        material="src: img/bloque-gris.jpg; color: #ffcccc;"></a-mixin>
-      <a-mixin
-        id="material2"
-        material="src: img/bloque-gris.jpg; color: #ccffcc;"></a-mixin>
-      <a-mixin
-        id="material3"
-        material="src: img/bloque-gris.jpg; color: #ccccff;"></a-mixin>
+      <?php
+      include "lib/colores.php";
+      foreach ($css3_colors as $color) {
+        echo '
+      			<a-mixin
+		       id="mat' . $color . '"
+		       material="src: img/bloque.jpg; color: ' . $color . ';"
+		     ></a-mixin>
+      		';
+      }
+      ?>
+
+
+      <img id="cielo" src="img/cielo.jpg">
+
     </a-assets>
 
-    <a-sky color="#ECECEC"></a-sky>
+
+    <a-sky src="#cielo" material="fog: false;"></a-sky>
 
     <a-entity
       light="type: directional; intensity: 1; castShadow: true"
       position="10 15 10"></a-entity>
 
-    <a-entity light="type: ambient; intensity: 0.3"></a-entity>
+    <a-entity
+      light="type: ambient; intensity: 0.3"></a-entity>
 
     <a-entity
       id="player"
-      dynamic-body="mass: 5; shape: box;"
       position="0 1 0"
       wasd-controls
-      look-controls>
+      look-controls="pointerLockEnabled: true"
+      simple-gravity>
       <a-entity id="camera" camera>
         <a-cursor
           id="cursor"
@@ -54,12 +82,12 @@
       </a-entity>
     </a-entity>
   </a-scene>
-
   <script>
-    <?php include "codigo/codigo.js" ?>
+    <?php include "codigo/codigo.js"; ?>
   </script>
-  <?php include 'componentes/guardar/guardar.php'; ?>
+  <?php include "componentes/guardar/guardar.php"; ?>
 
+  <?php include "componentes/repositorio/repositorio.php"; ?>
 </body>
 
 </html>

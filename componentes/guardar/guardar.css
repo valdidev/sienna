@@ -1,11 +1,49 @@
-/* Estilos del guardado */
-#guardar {
+/*
+	Estilos para el componente guardar
+*/
+
+header {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
-  padding: 10px;
+  background: sienna;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: stretch;
+  padding-right: 40px;
+  z-index: 10000;
+}
+h1 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: stretch;
+  margin-left: 40px;
+  color: white;
+  margin-right: 20px;
+}
+h1 img {
+  width: 50px;
+}
+#botonera {
+  padding: 0 30px;
+}
+#guardarServidor,
+#guardarLocal,
+#cargarArchivo,
+#reiniciarMemoria {
   background: white;
-  border: 1px solid black;
-  cursor: pointer;
+  color: sienna;
+  border-radius: 10px;
+  border: none;
+  margin-left: 20px;
+
+  padding: 10px;
 }

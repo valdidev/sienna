@@ -1,22 +1,25 @@
-/* Estilos del inicio de sesión */
+/* 
+	Estilos para el componente de login
+*/
+
 #login {
   position: absolute;
   width: 300px;
-  height: 350px;
+  height: 600px;
   top: 50%;
   left: 50%;
-  margin-top: -275px;
+  margin-top: -300px;
   margin-left: -150px;
   background: white;
   padding: 20px;
   z-index: 1000;
   text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }
-
 #login img {
   width: 100%;
 }
-
 #login input,
 #login button {
   width: 100%;
@@ -24,8 +27,6 @@
   padding: 10px;
   margin-bottom: 10px;
 }
-
-#muestraregistro {
-  cursor: pointer;
-  color: #007bff;
+#login h1 {
+  color: sienna;
 }
