@@ -1,1 +1,4 @@
+- Refactorizar código en funciones
+- Añadir comentarios
 - El personaje solo se mueve cuando hace login
+- El repositorio solo aparace al hacer login

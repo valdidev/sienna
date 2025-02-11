@@ -77,6 +77,7 @@ function onLoginSuccess(usuario) {
   // Habilitar los controles ante login exitoso
   const player = document.querySelector("#player");
   player.setAttribute("wasd-controls", "enabled", true);
+  document.querySelector("#repositorio").style.display = "block";
 }
 
 /**
