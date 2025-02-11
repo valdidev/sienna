@@ -4,15 +4,15 @@
 */
 ?>
 <header>
-	<h1>
-		<img src="sienna.png">jocarsa | sienna
-	</h1>
-	<div id="botonera">
-		<button id="guardarServidor">Guardar en servidor</button>
-		<button id="guardarLocal">Guardar en local</button>
-		<button id="cargarArchivo">Cargar archivo</button>
-		<button id="reiniciarMemoria">Reiniciar</button>
-	</div>
+  <h1>
+    <img src="sienna.webp" alt="Icono">
+  </h1>
+  <div id="botonera">
+    <button id="guardarServidor">Guardar en servidor</button>
+    <button id="guardarLocal">Guardar en local</button>
+    <button id="cargarArchivo">Cargar archivo</button>
+    <button id="reiniciarMemoria">Reiniciar</button>
+  </div>
 </header>
 
 <style>

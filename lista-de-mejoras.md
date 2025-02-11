@@ -1,0 +1,1 @@
+- El personaje solo se mueve cuando hace login

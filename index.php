@@ -11,7 +11,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>jocarsa | sienna</title>
+  <title>valdidev 3D</title>
   <!-- cargo archivo configuración -->
   <script src="codigo/config.js"></script>
   <!-- cargo librerías -->
@@ -77,7 +77,7 @@
     <a-entity
       id="player"
       position="0 1 0"
-      wasd-controls
+      wasd-controls="enabled: false"
       look-controls="pointerLockEnabled: true"
       simple-gravity>
 

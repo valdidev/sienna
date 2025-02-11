@@ -6,7 +6,7 @@
 */
 ?>
 <div id="login">
-	<img src="sienna.png">
+	<img src="sienna.webp">
 	<h1>jocarsa | Sienna</h1>
 	<div id="contienelogin">
 		<h3>Inicia sesión</h3>

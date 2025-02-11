@@ -73,6 +73,10 @@ function onLoginSuccess(usuario) {
   document.querySelector("#login").style.display = "none";
   localStorage.setItem("siennausuario", usuario);
   cargarTerreno(usuario);
+
+  // Habilitar los controles ante login exitoso
+  const player = document.querySelector("#player");
+  player.setAttribute("wasd-controls", "enabled", true);
 }
 
 /**
