@@ -185,6 +185,7 @@ AFRAME.registerComponent("simple-gravity", {
     groundThreshold: { type: "number", default: 1.01 },
     smoothingFactor: { type: "number", default: 0.1 },
     jumpStrength: { type: "number", default: 5 }, // Fuerza del salto
+    maxDepth: { type: "number", default: -10 }, // Profundidad máxima antes de reaparecer
   },
   init: function () {
     this.velocityY = 0;
@@ -200,7 +201,6 @@ AFRAME.registerComponent("simple-gravity", {
   onKeyDown: function (event) {
     // Saltar si se presiona la barra espaciadora y el personaje está en el suelo
     if (event.code === "Space" && this.isGrounded) {
-      console.log("eee");
       this.velocityY = this.data.jumpStrength; // Aplicar fuerza de salto
       this.isGrounded = false; // El personaje ya no está en el suelo
     }
@@ -217,6 +217,14 @@ AFRAME.registerComponent("simple-gravity", {
 
     // Actualizar la posición en Y
     pos.y += this.velocityY * delta;
+
+    // Verificar si el jugador ha caído por debajo de la profundidad máxima
+    if (pos.y < this.data.maxDepth) {
+      // Reposicionar al jugador en la superficie
+      pos.y = 10; // Ajusta este valor según la altura deseada de la superficie
+      this.velocityY = 0; // Resetear la velocidad vertical
+      this.isGrounded = false; // El jugador no está en el suelo
+    }
 
     // Detectar colisión con el suelo
     const origin = new THREE.Vector3(pos.x, pos.y, pos.z);
