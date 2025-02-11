@@ -31,16 +31,22 @@
 </head>
 
 <body>
-  <div id="instruction">Click para entrar en el juego</div>
+  <div id="instruction">Click para empezar</div>
+
   <?php include "componentes/login/login.php"; ?>
 
+  <!-- Escena principal -->
   <a-scene
     shadow="type: pcfsoft"
     physics="gravity: -9.8;"
     fog="type: linear; color: #ffffff; near: 10; far: 50">
+
+    <!-- Assets -->
     <a-assets>
       <?php
       include "lib/colores.php";
+
+      // Genera mixins de materiales para cada color definido
       foreach ($css3_colors as $color) {
         echo '
       			<a-mixin
@@ -51,28 +57,33 @@
       }
       ?>
 
-
+      <!-- Imagen de fondo para el cielo -->
       <img id="cielo" src="img/cielo.jpg">
-
     </a-assets>
 
-
+    <!-- Skybox que usa la imagen del cielo como fondo -->
     <a-sky src="#cielo" material="fog: false;"></a-sky>
 
+    <!-- Luz direccional -->
     <a-entity
       light="type: directional; intensity: 1; castShadow: true"
       position="10 15 10"></a-entity>
 
+    <!-- Luz ambiental -->
     <a-entity
       light="type: ambient; intensity: 0.3"></a-entity>
 
+    <!-- Entidad jugador -->
     <a-entity
       id="player"
       position="0 1 0"
       wasd-controls
       look-controls="pointerLockEnabled: true"
       simple-gravity>
+
+      <!-- Cámara que sigue al jugador -->
       <a-entity id="camera" camera>
+        <!-- Cursor personalizado para interacciones -->
         <a-cursor
           id="cursor"
           fuse="false"
@@ -82,11 +93,12 @@
       </a-entity>
     </a-entity>
   </a-scene>
+
   <script>
     <?php include "codigo/codigo.js"; ?>
   </script>
-  <?php include "componentes/guardar/guardar.php"; ?>
 
+  <?php include "componentes/guardar/guardar.php"; ?>
   <?php include "componentes/repositorio/repositorio.php"; ?>
 </body>
 
