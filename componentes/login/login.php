@@ -6,10 +6,8 @@
 */
 ?>
 <div id="login">
-	<img src="sienna.webp">
-	<h1>jocarsa | Sienna</h1>
+	<img src="sienna.png">
 	<div id="contienelogin">
-		<h3>Inicia sesión</h3>
 		<input type="text" id="usuario">
 		<input type="password" id="contrasena">
 		<button id="iniciarsesion">Iniciar sesión</button>

@@ -5,7 +5,7 @@
 ?>
 <header>
   <h1>
-    <img src="sienna.webp" alt="Icono">
+    <img src="sienna.png" alt="Icono">
   </h1>
   <div id="botonera">
     <button id="guardarServidor">Guardar en servidor</button>
