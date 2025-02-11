@@ -2,3 +2,5 @@
 - Añadir comentarios
 - El personaje solo se mueve cuando hace login
 - El repositorio solo aparace al hacer login
+- Al pulsar ESC aparece el header y desaparece el repositorio
+- El personaje puede saltar

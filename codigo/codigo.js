@@ -184,6 +184,7 @@ AFRAME.registerComponent("simple-gravity", {
     raycastLength: { type: "number", default: 2 },
     groundThreshold: { type: "number", default: 1.01 },
     smoothingFactor: { type: "number", default: 0.1 },
+    jumpStrength: { type: "number", default: 5 }, // Fuerza del salto
   },
   init: function () {
     this.velocityY = 0;
@@ -191,14 +192,33 @@ AFRAME.registerComponent("simple-gravity", {
     this.raycaster = new THREE.Raycaster();
     this.isGrounded = false;
     this.targetY = this.el.object3D.position.y; // Target Y position for smoothing
+
+    // Escuchar el evento de tecla presionada para el salto
+    this.onKeyDown = this.onKeyDown.bind(this);
+    document.addEventListener("keydown", this.onKeyDown);
+  },
+  onKeyDown: function (event) {
+    // Saltar si se presiona la barra espaciadora y el personaje está en el suelo
+    if (event.code === "Space" && this.isGrounded) {
+      console.log("eee");
+      this.velocityY = this.data.jumpStrength; // Aplicar fuerza de salto
+      this.isGrounded = false; // El personaje ya no está en el suelo
+    }
   },
   tick: function (time, timeDelta) {
     if (!this.data.enabled) return;
 
-    const delta = timeDelta / 1000;
+    const delta = timeDelta / 1000; // Convertir a segundos
     const el = this.el;
     const pos = el.object3D.position;
 
+    // Aplicar gravedad
+    this.velocityY += this.data.gravity * delta;
+
+    // Actualizar la posición en Y
+    pos.y += this.velocityY * delta;
+
+    // Detectar colisión con el suelo
     const origin = new THREE.Vector3(pos.x, pos.y, pos.z);
     this.raycaster.set(origin, this.direction);
     const clickableEls = document.querySelectorAll(".clickable");
@@ -210,25 +230,24 @@ AFRAME.registerComponent("simple-gravity", {
     });
 
     const intersects = this.raycaster.intersectObjects(meshList, true);
-    let groundDist = Infinity;
-    if (intersects.length > 0) {
-      groundDist = intersects[0].distance;
-    }
+    let groundDist = intersects.length > 0 ? intersects[0].distance : Infinity;
 
     if (groundDist < this.data.groundThreshold && groundDist !== 0) {
+      // El personaje está en el suelo
       this.isGrounded = true;
-      this.velocityY = 0;
-      this.targetY = pos.y - groundDist + this.data.groundThreshold;
+      this.velocityY = 0; // Detener el movimiento vertical
+      pos.y = intersects[0].point.y + this.data.groundThreshold; // Ajustar la posición al suelo
     } else {
+      // El personaje está en el aire
       this.isGrounded = false;
-      this.velocityY += this.data.gravity * delta;
-      this.targetY += this.velocityY * delta;
     }
-
-    pos.y += (this.targetY - pos.y) * this.data.smoothingFactor;
 
     // Actualizar chunks según la posición del jugador
     updateChunks(pos);
+  },
+  remove: function () {
+    // Limpiar el evento de tecla presionada al eliminar el componente
+    document.removeEventListener("keydown", this.onKeyDown);
   },
 });
 
@@ -388,13 +407,28 @@ memoria.forEach(function (celda, index) {
 // Quitar la pantalla de pausa al hacer clic
 playerEl.addEventListener("click", function () {
   instructionEl.classList.add("hidden");
+  document.querySelector("header").style.display = "none"; // Ocultar el header al empezar
+  document.querySelector("#repositorio").style.display = "block"; // Mostrar el repositorio al empezar
 });
 
 // Poner pantalla de pausa al sacar el cursor
 document.addEventListener("pointerlockchange", function () {
   if (document.pointerLockElement === sceneEl.canvas) {
+    document.querySelector("header").style.display = "none"; // Ocultar el header cuando el cursor está bloqueado
+    document.querySelector("#repositorio").style.display = "block"; // Mostrar el repositorio cuando el cursor está bloqueado
   } else {
     instructionEl.classList.remove("hidden");
+    document.querySelector("header").style.display = "flex"; // Mostrar el header cuando el cursor no está bloqueado
+    document.querySelector("#repositorio").style.display = "none"; // Ocultar el repositorio cuando el cursor no está bloqueado
+  }
+});
+
+// Detectar la tecla Escape
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    instructionEl.classList.remove("hidden");
+    document.querySelector("header").style.display = "flex"; // Mostrar el header al presionar Escape
+    document.querySelector("#repositorio").style.display = "none"; // Ocultar el repositorio al presionar Escape
   }
 });
 
@@ -402,4 +436,6 @@ document.addEventListener("pointerlockchange", function () {
 instructionEl.addEventListener("click", function () {
   instructionEl.classList.add("hidden");
   sceneEl.canvas.requestPointerLock();
+  document.querySelector("header").style.display = "none"; // Ocultar el header al hacer clic para empezar
+  document.querySelector("#repositorio").style.display = "block"; // Mostrar el repositorio al empezar
 });
