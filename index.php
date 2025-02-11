@@ -1,6 +1,6 @@
 <?php
 /* 
-    Este archivo es el punto de entrada del proyecto Sienna, un entorno 3D interactivo construido con A-Frame. 
+    Este archivo es el punto de entrada, un entorno 3D interactivo construido con A-Frame. 
     Incluye un sistema de inicio de sesión, un mundo 3D con iluminación, cielo dinámico y física básica, 
     y componentes para guardar/cargar datos y seleccionar colores. 
     También integra scripts y estilos para la interacción y personalización del entorno.
